@@ -1,0 +1,24 @@
+To do list:
+1. Implement 60 fps refresh frequency.
+1.1. recalculate movement speed. Dots should not move too fast.
+2. Implement impact of evolution factor for each new iteration.
+3. Add inheritance mechanic for dots who reach the edge of the map.
+4. Make all frame variables automatically connected to the general window size.
+5. Implement different types of dots:
+- (Standard) Dots - can only move, nothing else.
+- Predators - can eat another dots to restore their lifeTime.
+- Scavengers - can eat dead bodies to restore their lifeTime.
+5.1. Different parameters for each type.
+5.2. different colour for each type.
+6. Dots leave dead body after their lifeTime variable reach 0.
+6.1. Dead body disappears after a while.
+7. Add collision check Dot <> Dot. Dots cannot move to occupied positions.
+8. Add collision check Predator <> other Dots to eat (except Predators).
+9. Add collision check Scavengers <> Dead body to eat.
+10. The lifeTime variable should has a small random factor to diversify life cycles.
+10.1. Different types of dots has different lifeTime.
+11. Add visual edges of the WorkField.
+
+Bugs:
+1. MainWindow has wrong bottom-right coordinate which cause a problem that WorkField protrudes over the edge of the area
+2.

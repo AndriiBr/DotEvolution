@@ -42,14 +42,7 @@ public class WorkField extends JPanel implements ActionListener {
             g.drawLine(0, 101,201, 101);
             for (int i = 0; i < dots.size(); i++) {
                 g.setColor(Color.black);
-                g.drawRect(dots.get(i).PositionX, dots.get(i).PositionY, dotSize-1, dotSize-1);
-
-                //закрашивает фон квадрата. Не готово!!!
-                for (int j = 0; j <= dotSize-1; j++) {
-                    g.drawLine (dots.get(i).PositionX+1, dots.get(i).PositionY+1, dots.get(i).PositionX+dotSize-2, dots.get(i).PositionY+dotSize-2);
-                }
-
-
+                g.fillRect(dots.get(i).PositionX, dots.get(i).PositionY, dotSize-1, dotSize-1);
             }
         } else {
             //Эта часть пока что не реализована!!!!
