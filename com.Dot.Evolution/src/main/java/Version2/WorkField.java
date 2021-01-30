@@ -29,7 +29,7 @@ public class WorkField extends JPanel implements ActionListener {
 
     //запуск обновления итераций точек
     public void initEvolution(){
-        timer = new Timer(250,this);
+        timer = new Timer(17,this);
         timer.start();
     }
 
@@ -37,9 +37,23 @@ public class WorkField extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (isRunning) {
+            //Drawing the crosshair.
             g.setColor(Color.GREEN);
-            g.drawLine(101, 0,101, 201);
-            g.drawLine(0, 101,201, 101);
+            g.drawLine(MainWindow.getGeneralWindowSize()/2, 0,
+                    MainWindow.getGeneralWindowSize()/2, MainWindow.getGeneralWindowSize());
+            g.drawLine(0, MainWindow.getGeneralWindowSize()/2,
+                    MainWindow.getGeneralWindowSize(), MainWindow.getGeneralWindowSize()/2);
+
+            //Drawing edges of the field.
+            g.setColor(Color.red);
+            g.drawLine(0,0,MainWindow.getGeneralWindowSize(), 0);
+            g.drawLine(0,0,0, MainWindow.getGeneralWindowSize());
+            g.drawLine(0,MainWindow.getGeneralWindowSize(),MainWindow.getGeneralWindowSize(),
+                    MainWindow.getGeneralWindowSize());
+            g.drawLine(MainWindow.getGeneralWindowSize(),0,MainWindow.getGeneralWindowSize(),
+                    MainWindow.getGeneralWindowSize());
+
+
             for (int i = 0; i < dots.size(); i++) {
                 g.setColor(Color.black);
                 g.fillRect(dots.get(i).PositionX, dots.get(i).PositionY, dotSize-1, dotSize-1);
