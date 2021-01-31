@@ -5,24 +5,17 @@ import java.awt.*;
 
 public class MainWindow extends JFrame {
 
-    static int generalWindowSize = 603;
-
-    static int getGeneralWindowSize() {
-        return generalWindowSize;
-    }
-
     public MainWindow() {
         WorkField wf = new WorkField();
-        setTitle("DotEvolution");
-        setSize(generalWindowSize, generalWindowSize);
-        setLocation(450, 150);
-        setResizable(true);
-        setVisible(true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().add(wf);
-        getContentPane().setBackground(Color.white);
-        //add(new WorkField());
 
+        this.setTitle("DotEvolution");
+        this.add(wf);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setFocusable(false);
+        this.setResizable(true);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
     }
 
     public static void main(String[] args) {

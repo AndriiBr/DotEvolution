@@ -11,7 +11,8 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class WorkField extends JPanel implements ActionListener {
-    private final int dotSize = 8; //
+    static int generalWindowSize = 603;
+    private final int dotSize = 8;
     private Timer timer;
 //    private boolean run = false;
 //    private boolean stop = false;
@@ -21,6 +22,8 @@ public class WorkField extends JPanel implements ActionListener {
     ArrayList<GeneralDot> dots = new ArrayList<>();
 
     public WorkField() {
+        //JPannel lose 1 pixel right and down. I added +1 pixel to cover this gap.
+        this.setPreferredSize(new Dimension(generalWindowSize+1,generalWindowSize+1));
         setBackground(Color.white);
         initEvolution();
 //        addKeyListener(new FieldKeyListener());
@@ -36,33 +39,30 @@ public class WorkField extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
         if (isRunning) {
             //Drawing the crosshair.
-            g.setColor(Color.GREEN);
-            g.drawLine(MainWindow.getGeneralWindowSize()/2, 0,
-                    MainWindow.getGeneralWindowSize()/2, MainWindow.getGeneralWindowSize());
-            g.drawLine(0, MainWindow.getGeneralWindowSize()/2,
-                    MainWindow.getGeneralWindowSize(), MainWindow.getGeneralWindowSize()/2);
+            g2.setColor(Color.GREEN);
+            g2.drawLine(generalWindowSize/2, 0, generalWindowSize/2, generalWindowSize);
+            g2.drawLine(0, generalWindowSize/2, generalWindowSize, generalWindowSize/2);
 
             //Drawing edges of the field.
-            g.setColor(Color.red);
-            g.drawLine(0,0,MainWindow.getGeneralWindowSize(), 0);
-            g.drawLine(0,0,0, MainWindow.getGeneralWindowSize());
-            g.drawLine(0,MainWindow.getGeneralWindowSize(),MainWindow.getGeneralWindowSize(),
-                    MainWindow.getGeneralWindowSize());
-            g.drawLine(MainWindow.getGeneralWindowSize(),0,MainWindow.getGeneralWindowSize(),
-                    MainWindow.getGeneralWindowSize());
+            g2.setColor(Color.red);
+            g2.drawLine(0,0,generalWindowSize, 0);
+            g2.drawLine(0,0,0, generalWindowSize);
+            g2.drawLine(0,generalWindowSize,generalWindowSize, generalWindowSize);
+            g2.drawLine(generalWindowSize,0,generalWindowSize, generalWindowSize);
 
 
             for (int i = 0; i < dots.size(); i++) {
-                g.setColor(Color.black);
-                g.fillRect(dots.get(i).PositionX, dots.get(i).PositionY, dotSize-1, dotSize-1);
+                g2.setColor(Color.black);
+                g2.fillRect(dots.get(i).PositionX, dots.get(i).PositionY, dotSize-1, dotSize-1);
             }
         } else {
             //Эта часть пока что не реализована!!!!
             String str = "Evolution Over";
-            g.setColor(Color.black);
-            g.drawString(str, 201/2,201/2);
+            g2.setColor(Color.black);
+            g2.drawString(str, 201/2,201/2);
         }
     }
 
@@ -78,8 +78,10 @@ public class WorkField extends JPanel implements ActionListener {
             dots.get(i).move();
 
             System.out.println("Dot" + i + ": ");
-            System.out.println("Current evolution factor = " + new BigDecimal(dots.get(i).EvolutionFactor).setScale(2, RoundingMode.HALF_UP).doubleValue());
-            System.out.println("x = " + dots.get(i).PositionX + " y = " + dots.get(i).PositionY + " Life = " + dots.get(i).LifeTime);
+            System.out.println("Current evolution factor = " + new BigDecimal(dots.get(i).EvolutionFactor)
+                    .setScale(2, RoundingMode.HALF_UP).doubleValue());
+            System.out.println("x = " + dots.get(i).PositionX + " y = " + dots.get(i).PositionY
+                    + " Life = " + dots.get(i).LifeTime);
 
             i++;
         }

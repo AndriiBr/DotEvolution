@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class GeneralDot {
     public double EvolutionFactor = 1.0;
-    public int PositionX = MainWindow.getGeneralWindowSize()/2;
-    public int PositionY = MainWindow.getGeneralWindowSize()/2;
+    public int PositionX = WorkField.generalWindowSize/2;
+    public int PositionY = WorkField.generalWindowSize/2;
     public int XMoveChoice;
     public int PreviousXMoveChoice;
     public int YMoveChoice;
     public int PreviousYMoveChoice;
-    public int LifeTime = 2000;
+    public int LifeTime = 10000;
 
     public static int getRandomIndexToMove(int[] array) {
         int rnd = new Random().nextInt(array.length);
