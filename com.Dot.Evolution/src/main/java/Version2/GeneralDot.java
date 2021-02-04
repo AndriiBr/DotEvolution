@@ -2,6 +2,8 @@ package Version2;
 
 import java.util.Random;
 
+import static Version2.DotsHub.getSingleton;
+
 public class GeneralDot {
     public double EvolutionFactor = 1.0;
     public int PositionX = WorkField.generalWindowSize/2;
@@ -23,11 +25,21 @@ public class GeneralDot {
         (for each direction separately).
          */
         int[] nums = new int[] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+
         XMoveChoice = getRandomIndexToMove(nums);
         YMoveChoice = getRandomIndexToMove(nums);
 
-        PositionX = PositionX + XMoveChoice;
-        PositionY = PositionY + YMoveChoice;
+        //Collision check Dot <> Dot. Dots cannot move to occupied positions.
+        for (int j = 0; j < getSingleton().getDotHub().size(); j++) {
+            if (getSingleton().getDotHub().size() > 2) {
+                if (PositionX + XMoveChoice != getSingleton().getDotHub().get(j).PositionX
+                        && PositionY + YMoveChoice != getSingleton().getDotHub().get(j).PositionY) {
+                    PositionX = PositionX + XMoveChoice;
+                    PositionY = PositionY + YMoveChoice;
+                    break;
+                }
+            }
+        }
         evolutionCheck();
     }
 

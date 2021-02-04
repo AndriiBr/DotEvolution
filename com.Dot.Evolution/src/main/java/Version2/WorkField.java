@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import static Version2.DotsHub.getSingleton;
+
 public class WorkField extends JPanel implements ActionListener {
     static int generalWindowSize = 603;
     private final int dotSize = 8;
@@ -17,12 +19,13 @@ public class WorkField extends JPanel implements ActionListener {
 //    private boolean run = false;
 //    private boolean stop = false;
     private boolean isRunning = true;
-    final int numberOfDots = 10;
-
-    ArrayList<GeneralDot> dots = new ArrayList<>();
+    final int numberOfDots = 1000;
+    
 
     public WorkField() {
-        //JPannel lose 1 pixel right and down. I added +1 pixel to cover this gap.
+        /*After adding JPannel, JFrame resolution lose 1 pixel right and 1 pixel down.
+        I added +1 pixel to cover this gap.
+         */
         this.setPreferredSize(new Dimension(generalWindowSize+1,generalWindowSize+1));
         setBackground(Color.white);
         initEvolution();
@@ -53,10 +56,14 @@ public class WorkField extends JPanel implements ActionListener {
             g2.drawLine(0,generalWindowSize,generalWindowSize, generalWindowSize);
             g2.drawLine(generalWindowSize,0,generalWindowSize, generalWindowSize);
 
+            //Drawing Rectangles.
+            for (int i = 0; i < getSingleton().getDotHub().size(); i++) {
+                g2.setColor(Color.yellow);
+                g2.fillRect(getSingleton().getDotHub().get(i).PositionX, getSingleton().getDotHub().get(i).PositionY, dotSize-3, dotSize-3);
 
-            for (int i = 0; i < dots.size(); i++) {
+                //Draw dot borders (with rectangle)
                 g2.setColor(Color.black);
-                g2.fillRect(dots.get(i).PositionX, dots.get(i).PositionY, dotSize-1, dotSize-1);
+                g2.drawRect(getSingleton().getDotHub().get(i).PositionX, getSingleton().getDotHub().get(i).PositionY, dotSize-3, dotSize-3);
             }
         } else {
             //Эта часть пока что не реализована!!!!
@@ -68,20 +75,21 @@ public class WorkField extends JPanel implements ActionListener {
 
     //метод генерации новых точек и определения их передвижения.
     public void dotGenerate () {
-        while(dots.size() < numberOfDots) {
+        while(getSingleton().getDotHub().size() < numberOfDots) {
             GeneralDot a = new GeneralDot();
-            dots.add(a);
+            getSingleton().getDotHub().add(a);
+
         }
 
         int i = 0;
-        while(i < dots.size()) {
-            dots.get(i).move();
+        while(i < getSingleton().getDotHub().size()) {
+            getSingleton().getDotHub().get(i).move();
 
             System.out.println("Dot" + i + ": ");
-            System.out.println("Current evolution factor = " + new BigDecimal(dots.get(i).EvolutionFactor)
+            System.out.println("Current evolution factor = " + new BigDecimal(getSingleton().getDotHub().get(i).EvolutionFactor)
                     .setScale(2, RoundingMode.HALF_UP).doubleValue());
-            System.out.println("x = " + dots.get(i).PositionX + " y = " + dots.get(i).PositionY
-                    + " Life = " + dots.get(i).LifeTime);
+            System.out.println("x = " + getSingleton().getDotHub().get(i).PositionX + " y = " + getSingleton().getDotHub().get(i).PositionY
+                    + " Life = " + getSingleton().getDotHub().get(i).LifeTime);
 
             i++;
         }
