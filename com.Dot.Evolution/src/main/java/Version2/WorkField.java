@@ -14,12 +14,12 @@ import static Version2.DotsHub.getSingleton;
 
 public class WorkField extends JPanel implements ActionListener {
     static int generalWindowSize = 603;
-    private final int dotSize = 8;
+    static final int dotSize = 8;
     private Timer timer;
 //    private boolean run = false;
 //    private boolean stop = false;
     private boolean isRunning = true;
-    final int numberOfDots = 1000;
+    final int numberOfDots = 4;
     
 
     public WorkField() {
@@ -35,7 +35,8 @@ public class WorkField extends JPanel implements ActionListener {
 
     //запуск обновления итераций точек
     public void initEvolution(){
-        timer = new Timer(17,this);
+        //60 fps = 17 mls
+        timer = new Timer(500,this);
         timer.start();
     }
 

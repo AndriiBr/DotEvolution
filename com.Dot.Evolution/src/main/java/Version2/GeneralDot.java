@@ -8,6 +8,7 @@ public class GeneralDot {
     public double EvolutionFactor = 1.0;
     public int PositionX = WorkField.generalWindowSize/2;
     public int PositionY = WorkField.generalWindowSize/2;
+    public int [][][] coords = new int[WorkField.dotSize][WorkField.dotSize][2];
     public int XMoveChoice;
     public int PreviousXMoveChoice;
     public int YMoveChoice;
@@ -30,13 +31,19 @@ public class GeneralDot {
         YMoveChoice = getRandomIndexToMove(nums);
 
         //Collision check Dot <> Dot. Dots cannot move to occupied positions.
+
+        boolean collision = false;
+
         for (int j = 0; j < getSingleton().getDotHub().size(); j++) {
             if (getSingleton().getDotHub().size() > 2) {
-                if (PositionX + XMoveChoice != getSingleton().getDotHub().get(j).PositionX
-                        && PositionY + YMoveChoice != getSingleton().getDotHub().get(j).PositionY) {
-                    PositionX = PositionX + XMoveChoice;
-                    PositionY = PositionY + YMoveChoice;
+                if (PositionX + XMoveChoice*7 != getSingleton().getDotHub().get(j).PositionX
+                        && PositionY + YMoveChoice*7 != getSingleton().getDotHub().get(j).PositionY) {
+                    PositionX = PositionX + XMoveChoice*7;
+                    PositionY = PositionY + YMoveChoice*7;
+
                     break;
+                } else {
+                    System.out.println("!!!!!!!!COLLISION!!!!!!!!");
                 }
             }
         }
