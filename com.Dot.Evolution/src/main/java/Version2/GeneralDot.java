@@ -14,6 +14,7 @@ public class GeneralDot {
     public int YMoveChoice;
     public int PreviousYMoveChoice;
     public int LifeTime = 10000;
+    public boolean collision = false;
 
     public static int getRandomIndexToMove(int[] array) {
         int rnd = new Random().nextInt(array.length);
@@ -25,28 +26,33 @@ public class GeneralDot {
         80% chance that dot will not move.
         (for each direction separately).
          */
-        int[] nums = new int[] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+        int[] nums = new int[] { -1, 0, 0, 0, 1 };
 
         XMoveChoice = getRandomIndexToMove(nums);
         YMoveChoice = getRandomIndexToMove(nums);
 
         //Collision check Dot <> Dot. Dots cannot move to occupied positions.
-
-        boolean collision = false;
-
         for (int j = 0; j < getSingleton().getDotHub().size(); j++) {
             if (getSingleton().getDotHub().size() > 2) {
-                if (PositionX + XMoveChoice*7 != getSingleton().getDotHub().get(j).PositionX
-                        && PositionY + YMoveChoice*7 != getSingleton().getDotHub().get(j).PositionY) {
-                    PositionX = PositionX + XMoveChoice*7;
-                    PositionY = PositionY + YMoveChoice*7;
+                if (PositionX + XMoveChoice*7 == getSingleton().getDotHub().get(j).PositionX
+                        && PositionY + YMoveChoice*7 == getSingleton().getDotHub().get(j).PositionY) {
+                    collision = true;
+                    System.out.println("!!!!!!!!COLLISION!!!!!!!!");
+//                    PositionX = PositionX + XMoveChoice*7;
+//                    PositionY = PositionY + YMoveChoice*7;
 
                     break;
-                } else {
-                    System.out.println("!!!!!!!!COLLISION!!!!!!!!");
+//                } else {
+//                    System.out.println("!!!!!!!!COLLISION!!!!!!!!");
                 }
             }
         }
+        if (collision == false) {
+            PositionX = PositionX + XMoveChoice*7;
+            PositionY = PositionY + YMoveChoice*7;
+        }
+        collision = false;
+
         evolutionCheck();
     }
 

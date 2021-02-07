@@ -19,7 +19,7 @@ public class WorkField extends JPanel implements ActionListener {
 //    private boolean run = false;
 //    private boolean stop = false;
     private boolean isRunning = true;
-    final int numberOfDots = 4;
+    final int numberOfDots = 100;
     
 
     public WorkField() {
@@ -36,7 +36,7 @@ public class WorkField extends JPanel implements ActionListener {
     //запуск обновления итераций точек
     public void initEvolution(){
         //60 fps = 17 mls
-        timer = new Timer(500,this);
+        timer = new Timer(34,this);
         timer.start();
     }
 
